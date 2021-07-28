@@ -1,0 +1,40 @@
+import java.io.*;
+import java.math.*;
+import java.security.*;
+import java.text.*;
+import java.util.*;
+import java.util.concurrent.*;
+import java.util.regex.*;
+
+public class Solution
+{
+    
+    static long prime(long x) {
+        if (x == 0) {
+            return 0;
+        }
+        long y = x / 10;
+        long y1 = prime(y + (x % 10 > 7 ? 1 : 0));
+        if (y != y1) {
+            return 10 * y1 + 2;
+        }
+        return y1* 10 + (x % 10 <= 2 ? 2 : x % 10 <= 3 ? 3 : x % 10 <= 5 ? 5 : 7) ;
+    }
+
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        long first = in.nextLong();
+        long last = in.nextLong();
+        long count = 0;
+        first = prime(first);
+        while (first <= last) 
+        {
+            if (BigInteger.valueOf(first).isProbablePrime(5))
+            {
+                count++;
+            }
+            first = prime(first + 1);
+        }
+        System.out.println(count);
+    }
+}
